@@ -11,6 +11,7 @@ const User = require('../../models/User');
 // @route    GET api/auth
 // @desc     Get user by token
 // @access   Private
+console.log('auth.js enter');
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -36,6 +37,8 @@ router.post(
 
     const { email, password } = req.body;
 
+    console.log(req.body);
+    
     try {
       let user = await User.findOne({ email });
 
