@@ -5,14 +5,14 @@ const auth = require('../../middleware/auth');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../../models/User');
+const Admin = require('../../models/Admin');
 
 // @route    GET api/auth
 // @desc     Get user by token
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await Admin.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -36,7 +36,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await Admin.findOne({ email });
 
       if (!user) {
         return res
